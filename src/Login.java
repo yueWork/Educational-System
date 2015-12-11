@@ -105,7 +105,7 @@ public class Login extends JFrame {
 		contentPane.add(label_2);
 		
 		JLabel label_3 = new JLabel("提示消息");
-		label_3.setBounds(264, 216, 101, 16);
+		label_3.setBounds(264, 216, 142, 16);
 		contentPane.add(label_3);
 		
 		JButton button = new JButton("登陆");
@@ -140,6 +140,7 @@ public class Login extends JFrame {
 							msg = "用户与密码不匹配";
 							label_3.setText(msg);
 						}
+						con.close();
 						
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -161,13 +162,14 @@ public class Login extends JFrame {
 							System.out.println(pid +":"+pname+":"+dname);
 							con.ret.close();
 							
-							Teacher teacher = new Teacher();
+							Teacher teacher = new Teacher(Integer.parseInt(pid),pname,dname);
 							teacher.show();
 							
 						}else {
 							msg = "用户与密码不匹配";
 							label_3.setText(msg);
 						}	
+						con.close();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
