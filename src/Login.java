@@ -168,8 +168,10 @@ public class Login extends JFrame {
 						}else {
 							msg = "用户与密码不匹配";
 							label_3.setText(msg);
+							con.close();
+							
 						}	
-						con.close();
+						
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
