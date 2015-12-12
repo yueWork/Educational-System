@@ -132,8 +132,9 @@ public class Login extends JFrame {
 							String gpa = con.ret.getString(6);
 //							System.out.println(sid +":"+sname+":"+sex+":"+age+":"+year+":"+gpa);
 							con.ret.close();
-							
-							Student student = new Student();
+							sname=sname.replace("\"", "");
+							sex=sex.replace("\"", "");
+							Student student = new Student(sid, sname, sex, year, gpa, age);
 							student.show();
 							
 						}else {
