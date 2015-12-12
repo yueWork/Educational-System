@@ -1,88 +1,61 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
+import javax.swing.AbstractCellEditor;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Student extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static JTable table;
 	private static String []column={"序号","课程编号","课程名","成绩","任课老师"};
+	private String []courseInfo={"课程编号","课程名","班级","任课老师","院系","选课"};
+//	private String []chosenCourse={"序号","课程编号","课程名","任课老师"};
 	private static JLabel name_label;
 	private static JLabel sex_label;
 	private static JLabel age_label;
 	private static JLabel year_label;
 	private static JLabel gpa_label;
-	private static String sex="";
-	private static String name;
-	private static String age;
-	private static String gpa;
-	private static String year;
+//	private static String sex="";
+//	private static String name;
+//	private static String age;
+//	private static String gpa;
+//	private static String year;
 	String []names={"A","B"};
-	private static String [][]test={{"1","1","math","3","Te"},{"2","2","chinese","3","ted"}};
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Student frame = new Student();
-					ConnectDatabase connect=new ConnectDatabase();
-					connect.connect();
-					String sql="select * from university.student where sid=1";
-					PreparedStatement ps=connect.connection.prepareStatement(sql);
-					ResultSet rs=(ResultSet)ps.executeQuery();
-					while(rs.next()){
-						name=rs.getString(2);
-						sex=rs.getString(3);
-						age=rs.getString(4);
-						year=rs.getString(5);
-						gpa=rs.getString(6);
-						
-						name=name.replace("\"", "");
-						sex=sex.replace("\"", "");
-						name_label.setText(name);
-						sex_label.setText(sex);
-						age_label.setText(age);
-						year_label.setText(year);
-						gpa_label.setText(gpa);
-						System.out.println("age:"+age);
-					}
-					rs.close();
-					ps.close();
-					
-					sql="";
-					DefaultTableModel mode=new DefaultTableModel(test,column);
-					table.setModel(mode);
-					frame.setVisible(true);
-					ImageIcon image=new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/background.jpg");
-					JLabel imagelabel=new JLabel(image);
-					frame.getLayeredPane().add(imagelabel, new Integer(Integer.MIN_VALUE));
-					imagelabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public Student() {
+	public Student(String sid,String sname,String sex,String year,String gpa,String age) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		contentPane = new JPanel();
@@ -90,8 +63,68 @@ public class Student extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		ImageIcon mainBack=new ImageIcon("../img/background.jpg");
+		JLabel imgMain=new JLabel(mainBack);
+		imgMain.setBounds(0, 0, mainBack.getIconWidth(), mainBack.getIconHeight());
+		contentPane.setOpaque(false);
+		this.getLayeredPane().add(imgMain,new Integer(Integer.MIN_VALUE));
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(18, 15, 614, 348);
+		tabbedPane.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
+			    int selectedIndex = tabbedPane.getSelectedIndex();
+			    switch (selectedIndex) {
+			    case 0:
+			    	System.out.println(00);
+			     break;
+			    case 1:
+			    	String [][]test;
+					int i=0;
+					ConnectDatabase connect=new ConnectDatabase();
+					connect.connect();
+					String sql="select en.cno,c.cname,en.grade,s.pname from university.enroll en,university.course c,university.section s "+
+							   "where en.dname=s.dname and en.cno=s.cno and en.sectno=s.sectno and en.dname=c.dname and en.cno=c.cno and sid="+sid;
+					PreparedStatement ps;
+					try {
+						ps = connect.connection.prepareStatement(sql);
+						ResultSet rs=(ResultSet)ps.executeQuery();					
+						rs.last();
+						System.out.println(rs.getRow());
+						test=new String[rs.getRow()][5];
+						rs.beforeFirst();
+						while(rs.next()){
+							test[i][0]=String.valueOf(i+1);
+							test[i][1]=rs.getString(1);
+							test[i][2]=rs.getString(2).replace("\"", "");
+							test[i][3]=rs.getString(3);
+							test[i][4]=rs.getString(4).replace("\"", "");
+							i++;
+						}
+						rs.close();
+						ps.close();
+						
+						DefaultTableModel mode=new DefaultTableModel(test,column);
+						table.setModel(mode);
+						table.getColumnModel().getColumn(0).setPreferredWidth(30);
+						table.getColumnModel().getColumn(2).setPreferredWidth(180);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			    	System.out.println(01);
+			     break;
+			    case 2:
+			    	System.out.println(10);
+			    	break;
+			    default:
+			    	break;
+			    }
+			}
+		});
 		contentPane.add(tabbedPane);
 		
 		JPanel infoPan=new JPanel();
@@ -144,18 +177,309 @@ public class Student extends JFrame {
 		JPanel gradePan=new JPanel();
 		DefaultTableModel model=new DefaultTableModel(column,3);
 		table = new JTable(model);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPane=new JScrollPane(table);
-		scrollPane.setSize(200, 100);
+		Dimension dim=new Dimension(550, 290);
+		scrollPane.setPreferredSize(dim);
 		scrollPane.setLocation(25, 44);		
-		table.setBounds(128, 195, 150, 99);		
+		table.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
 		gradePan.add(scrollPane);
 		scrollPane.setViewportView(table);
 		tabbedPane.add(gradePan,"Grade");
 		
 		JPanel chooseCoursePan=new JPanel();
+		DefaultTableModel modelCourse=new DefaultTableModel(courseInfo,3);
+		JTable tableCourse = new JTable(modelCourse);
+		tableCourse.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		JScrollPane scrollPaneCourse=new JScrollPane(tableCourse);
+		Dimension dimCourse=new Dimension(550, 290);
+		scrollPaneCourse.setPreferredSize(dimCourse);
+		scrollPaneCourse.setLocation(25, 44);		
+		tableCourse.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
+		chooseCoursePan.add(scrollPaneCourse);
+		scrollPaneCourse.setViewportView(tableCourse);
 		tabbedPane.add(chooseCoursePan, "Choose Course");
+		 
+//		JPanel courseChosen=new JPanel();
+//		DefaultTableModel modelChosen=new DefaultTableModel(chosenCourse,3);
+//		JTable tableChosen = new JTable(modelChosen);
+//		tableChosen.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+//		JScrollPane scrollPaneChosen=new JScrollPane(tableChosen);
+//		Dimension dimChosen=new Dimension(550, 290);
+//		scrollPaneChosen.setPreferredSize(dimChosen);
+//		scrollPaneChosen.setLocation(25, 44);		
+////		tableChosen.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
+//		courseChosen.add(scrollPaneChosen);
+//		scrollPaneChosen.setViewportView(tableChosen);
+//		tabbedPane.add(courseChosen, "Coures Chosen");
+		
+		name_label.setText(sname);
+		sex_label.setText(sex);
+		age_label.setText(age);
+		year_label.setText(year);
+		gpa_label.setText(gpa);
+		
+		String [][]test;
+		int i=0;
+		ConnectDatabase connect=new ConnectDatabase();
+		connect.connect();
+		String sql="select en.cno,c.cname,en.grade,s.pname from university.enroll en,university.course c,university.section s "+
+				   "where en.dname=s.dname and en.cno=s.cno and en.sectno=s.sectno and en.dname=c.dname and en.cno=c.cno and sid="+sid;
+		PreparedStatement ps=connect.connection.prepareStatement(sql);
+		ResultSet rs=(ResultSet)ps.executeQuery();
+		
+		rs.last();
+		System.out.println(rs.getRow());
+		test=new String[rs.getRow()][5];
+		rs.beforeFirst();
+		while(rs.next()){
+			test[i][0]=String.valueOf(i+1);
+			test[i][1]=rs.getString(1);
+			test[i][2]=rs.getString(2).replace("\"", "");
+			test[i][3]=rs.getString(3);
+			test[i][4]=rs.getString(4).replace("\"", "");
+			i++;
+		}
+		rs.close();
+		ps.close();
+
+		sql="select c.cno,c.cname,s.sectno,s.pname,s.dname from university.course c,"+
+				"university.section s where c.cno=s.cno and c.dname=s.dname";
+		ps=connect.connection.prepareStatement(sql);
+		rs=(ResultSet)ps.executeQuery();
+		rs.last();
+		System.out.println(rs.getRow());
+		Object [][]course=new Object[rs.getRow()][6];
+		i=0;
+		rs.beforeFirst();
+		while(rs.next()){
+			course[i][0]=rs.getString(1);
+			course[i][1]=rs.getString(2).replace("\"", "");
+			course[i][2]=rs.getString(3);
+			course[i][3]=rs.getString(4).replace("\"", "");
+			course[i][4]=rs.getString(5).replace("\"", "");
+			course[i][5]="选课";
+			i++;
+		}
+		rs.close();
+		ps.close();
+		
+		DefaultTableModel mode=new DefaultTableModel(test,column);
+//		DefaultTableModel modeCourse=new DefaultTableModel(course,courseInfo);
+		
+		tableCourse.setModel(new DefaultTableModel(){
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Object getValueAt(int row, int column) {
+				return course[row][column];
+			}
+			
+			public String getColumnName(int c) {
+				   return courseInfo[c];
+				  }
+			@Override
+			public int getRowCount() {
+				return course.length;
+			}
+//
+			@Override
+			public int getColumnCount() {
+				return 6;
+			}
+
+			@Override
+			public void setValueAt(Object aValue, int row, int column) {
+				course[row][column] = aValue;
+				fireTableCellUpdated(row, column);
+			}
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				if (column == 5) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+		tableCourse.getColumnModel().getColumn(5).setCellEditor(new MyButtonEditor(sid));
+		tableCourse.getColumnModel().getColumn(5).setCellRenderer(new MyButtonRenderer());
+		tableCourse.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tableCourse.getColumnModel().getColumn(1).setPreferredWidth(180);
+		tableCourse.getColumnModel().getColumn(2).setPreferredWidth(30);
+		tableCourse.getColumnModel().getColumn(4).setPreferredWidth(150);
+		tableCourse.setRowSelectionAllowed(false);
+		table.setModel(mode);
+		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(2).setPreferredWidth(180);
 		
 //		JPanel 
 	}
+	public class MyButtonRenderer implements TableCellRenderer {
+		private JPanel panel;
+		private JButton button;
+		public MyButtonRenderer() {
+			initButton();
 
+			initPanel();
+
+			panel.add(button, BorderLayout.CENTER);
+		}
+
+		private void initButton() {
+			button = new JButton();
+
+		}
+
+		private void initPanel() {
+			panel = new JPanel();
+
+			panel.setLayout(new BorderLayout());
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			button.setText(value == null ? "" : (String)value);
+			return panel;
+		}
+
+	}
+	public class MyButtonEditor extends AbstractCellEditor implements TableCellEditor {
+
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = -6546334664166791132L;
+
+		private JPanel panel;
+
+		private JButton button;
+		private String sid;
+		private String val;
+		private int row;
+		private JTable table;
+		private String grade="0";
+		private String dname;
+		private String sectno;
+		private String cno;
+		public MyButtonEditor(String sid) {
+			this.sid=sid;
+			initButton();
+
+			initPanel();
+
+			panel.add(this.button, BorderLayout.CENTER);
+		}
+
+		public void initButton() {
+			button = new JButton();
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int res = JOptionPane.showConfirmDialog(null, "Do you want to choose this course?", "choose course",
+							JOptionPane.YES_NO_OPTION);
+
+					if (res == JOptionPane.YES_OPTION) {
+						ConnectDatabase connect=new ConnectDatabase();
+						connect.connect();
+						grade="0";
+						dname="'\""+(String)table.getValueAt(row, 4)+"\"'";
+						cno=(String)table.getValueAt(row, 0);
+						sectno=(String)table.getValueAt(row, 2);
+						String sql="insert into university.enroll (sid,grade,dname,cno,sectno) values ("+sid+","+grade+","+dname+
+								","+cno+","+sectno+")";
+						System.out.println(sql);
+						Statement ps;
+						try {
+							ps = connect.connection.createStatement();
+							ps.execute(sql);
+							ps.close();
+//							ResultSet rs=(ResultSet)ps.executeQuery();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+					}
+					// stopped!!!!
+					fireEditingStopped();
+
+				}
+			});
+
+		}
+
+		private void initPanel() {
+			panel = new JPanel();
+
+			panel.setLayout(new BorderLayout());
+		}
+
+		@Override
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+				int column) {
+//			num = (Integer) value;
+			val=(String)value;
+			this.row=row;
+			this.table=table;
+			button.setText(value == null ? "" : (String)value);
+
+			return panel;
+		}
+
+		@Override
+		public Object getCellEditorValue() {
+			return val;
+		}
+
+	}
+	class MyTableModel extends AbstractTableModel {
+		  /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private String headName[];
+		  private Object obj[][];
+		  
+		  public MyTableModel() {
+		   super();
+		  }
+		  
+		  public MyTableModel(String[] headName, Object[][] obj) {
+		   this();
+		   this.headName = headName;
+		   this.obj = obj;
+		  }
+
+		  public int getColumnCount() {
+		   return headName.length;
+		  }
+
+		  public int getRowCount() {
+		   return obj.length;
+		  }
+
+		  public Object getValueAt(int r, int c) {
+		   return obj[r][c];
+		  }
+
+		  public String getColumnName(int c) {
+		   return headName[c];
+		  }
+
+		  public Class<?> getColumnClass(int columnIndex) {
+		   return obj[0][columnIndex].getClass();
+		  }
+		  public boolean isCellEditable(int rowIndex, int columnIndex) {
+		   if (columnIndex == 3 || columnIndex == 4) {
+		    return false;
+		   }
+		   return true;
+		  }
+
+		 }
 }
