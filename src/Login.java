@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.BoxLayout;
+import java.awt.Font;
 
 public class Login extends JFrame {
 	
@@ -56,11 +58,11 @@ public class Login extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(124, 51, 10, 27);
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange() == ItemEvent.SELECTED)
@@ -76,6 +78,7 @@ public class Login extends JFrame {
 	
 			}
 		});
+		contentPane.setLayout(null);
 		comboBox.addItem("学生");
 		comboBox.addItem("教师");
 		comboBox.addItem("管理员");
@@ -93,22 +96,24 @@ public class Login extends JFrame {
 		textField_1.setColumns(10);
 		
 		JLabel label = new JLabel("用户名");
-		label.setBounds(36, 100, 61, 16);
+		label.setBounds(41, 100, 61, 16);
 		contentPane.add(label);
 		
 		JLabel label_1 = new JLabel("密码：");
 		label_1.setBounds(41, 149, 39, 16);
 		contentPane.add(label_1);
+
 		
 		JLabel label_2 = new JLabel("初始密码：0000");
 		label_2.setBounds(128, 183, 130, 16);
 		contentPane.add(label_2);
 		
 		JLabel label_3 = new JLabel("提示消息");
-		label_3.setBounds(264, 216, 142, 16);
+		label_3.setBounds(264, 216, 101, 16);
 		contentPane.add(label_3);
 		
 		JButton button = new JButton("登陆");
+		button.setBounds(124, 222, 117, 29);
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -135,6 +140,7 @@ public class Login extends JFrame {
 							
 							Student student = new Student();
 							student.show();
+							Login.this.dispose();
 							
 						}else {
 							msg = "用户与密码不匹配";
@@ -161,14 +167,15 @@ public class Login extends JFrame {
 							String dname = con.ret.getString(3);
 							System.out.println(pid +":"+pname+":"+dname);
 							con.ret.close();
-							
+							con.close();
 							Teacher teacher = new Teacher(Integer.parseInt(pid),pname,dname);
 							teacher.show();
+							Login.this.dispose();
 							
 						}else {
 							msg = "用户与密码不匹配";
 							label_3.setText(msg);
-							con.close();
+							
 							
 						}	
 						
@@ -182,6 +189,7 @@ public class Login extends JFrame {
 					{
 						Administer admin = new Administer();
 						admin.show();
+						Login.this.dispose();
 					}else {
 						msg = "用户与密码不匹配";
 						label_3.setText(msg);
@@ -194,7 +202,11 @@ public class Login extends JFrame {
 				
 			}
 		});
-		button.setBounds(124, 211, 117, 29);
 		contentPane.add(button);
+		
+		JLabel label_4 = new JLabel("教务系统");
+		label_4.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		label_4.setBounds(168, 6, 90, 22);
+		contentPane.add(label_4);
 	}
 }

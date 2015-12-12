@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import com.mysql.jdbc.ResultSet;
 
 public class ConnectDatabase {
-	public String url = "jdbc:mysql://localhost:3306/university";
+	public String url = "jdbc:mysql://localhost:3307/university";
 	public String name = "com.mysql.jdbc.Driver";
 	public String username = "root";
-	public String password = "adminzyy22339456732";
+	public String password = "8387110";
 	public java.sql.PreparedStatement pst = null;
 	public Connection connection = null;
 	public ResultSet ret = null;
