@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextField;
 
 public class CourseInfo extends JFrame {
 
@@ -26,6 +27,10 @@ public class CourseInfo extends JFrame {
 	final ArrayList<String> _dname = new ArrayList<String>();
 	private JPanel contentPane;
 	private JTable table;
+	private String msg = null;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 
 
 	/**
@@ -78,9 +83,10 @@ public class CourseInfo extends JFrame {
 			public String getColumnName(int column) {
 				return columnName[column];
 			}
-			 public Class getColumnClass(int c) {
+			public Class getColumnClass(int c) {
 				 return getValueAt(0, c).getClass();
-				 }
+			}
+			 
 		};
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -105,6 +111,67 @@ public class CourseInfo extends JFrame {
 			}
 		});
 		panel.add(button);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.SOUTH);
+		
+		JLabel label_1 = new JLabel("课程号：");
+		panel_1.add(label_1);
+		
+		textField = new JTextField();
+		panel_1.add(textField);
+		textField.setColumns(3);
+		
+		JLabel label_2 = new JLabel("课程名：");
+		panel_1.add(label_2);
+		
+		textField_1 = new JTextField();
+		panel_1.add(textField_1);
+		textField_1.setColumns(3);
+		
+		JLabel label_3 = new JLabel("系名：");
+		panel_1.add(label_3);
+		
+		textField_2 = new JTextField();
+		panel_1.add(textField_2);
+		textField_2.setColumns(3);
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel label_4 = new JLabel("    消息提示");
+		panel_2.add(label_4, BorderLayout.NORTH);
+		
+		JButton btnNewButton = new JButton("添加课程");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String[][] datas = new String[3][2];
+				if(!textField.getText().equals("")){
+					String cno = textField.getText();
+					datas[0][0] = "cno";
+					datas[0][1] = cno;
+				}
+				if(!textField.getText().equals("")){
+					String cname = textField_1.getText();
+					datas[1][0] = "cname";
+					datas[1][1] = "'"+cname+"'";
+				}
+				if(!textField.getText().equals("")){
+					String dname = textField_2.getText();
+					datas[2][0] = "dname";
+					datas[2][1] = "'"+dname+"'";
+				}
+				ConnectDatabase con = new ConnectDatabase();
+				con.connect();		
+				msg = con.insert("course", datas);
+				label_4.setText(msg);
+				con.close();
+
+			}
+		});
+		panel_2.add(btnNewButton, BorderLayout.SOUTH);
 	}
 	
 	public void setCount(){

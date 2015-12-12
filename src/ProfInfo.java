@@ -16,6 +16,9 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.FlowLayout;
+import javax.swing.JTextField;
+import java.awt.Font;
 
 public class ProfInfo extends JFrame {
 
@@ -26,6 +29,10 @@ public class ProfInfo extends JFrame {
 	final ArrayList<String> _dname = new ArrayList<String>();
 	private JPanel contentPane;
 	private JTable table;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+    private String msg = null;
 
 	/**
 	 * Create the frame.
@@ -77,9 +84,9 @@ public class ProfInfo extends JFrame {
 			public String getColumnName(int column) {
 				return columnName[column];
 			}
-			 public Class getColumnClass(int c) {
+			public Class getColumnClass(int c) {
 				 return getValueAt(0, c).getClass();
-				 }
+			}
 		};
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -104,6 +111,70 @@ public class ProfInfo extends JFrame {
 			}
 		});
 		panel.add(button);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel label_1 = new JLabel("编号：");
+		panel_1.add(label_1);
+		
+		textField = new JTextField();
+		panel_1.add(textField);
+		textField.setColumns(3);
+		
+		JLabel label_2 = new JLabel("姓名：");
+		panel_1.add(label_2);
+		
+		textField_1 = new JTextField();
+		panel_1.add(textField_1);
+		textField_1.setColumns(3);
+		
+		JLabel label_3 = new JLabel("系名：");
+		panel_1.add(label_3);
+		
+		textField_2 = new JTextField();
+		panel_1.add(textField_2);
+		textField_2.setColumns(3);
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblLl = new JLabel("   消息提示");
+		lblLl.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		panel_2.add(lblLl, BorderLayout.NORTH);
+		
+		JButton btnNewButton = new JButton("添加教师");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String[][] datas = new String[3][2];
+				if(!textField.getText().equals("")){
+					String pid = textField.getText();
+					datas[0][0] = "pid";
+					datas[0][1] = pid;
+				}
+				if(!textField.getText().equals("")){
+					String pname = textField_1.getText();
+					datas[1][0] = "pname";
+					datas[1][1] = "'"+pname+"'";
+				}
+				if(!textField.getText().equals("")){
+					String dname = textField_2.getText();
+					datas[2][0] = "dname";
+					datas[2][1] = "'"+dname+"'";
+				}
+				ConnectDatabase con = new ConnectDatabase();
+				con.connect();		
+				msg = con.insert("prof", datas);
+				lblLl.setText(msg);
+				con.close();
+
+			}
+		});
+		panel_2.add(btnNewButton, BorderLayout.SOUTH);
+		
 	}
 	
 	public void setCount(){

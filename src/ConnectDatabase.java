@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.mysql.jdbc.ResultSet;
+import com.mysql.jdbc.Statement;
 
 public class ConnectDatabase {
 	public String url = "jdbc:mysql://localhost:3307/university";
@@ -34,6 +35,38 @@ public class ConnectDatabase {
 			e.printStackTrace();
 		}
 		
+	}
+	String insert(String table_name,String datas[][])//插入数据
+	{
+		String msg = null;
+		String sql = "insert into " + table_name +"(";
+		for(int i=0;i<datas.length;i++)
+		{
+			sql = sql + datas[i][0] + ",";
+		}
+		sql = sql.substring(0, sql.length()-1);
+		sql = sql + ")values(";
+		for(int i=0;i<datas.length;i++)
+		{
+			sql = sql + datas[i][1] + ",";
+		}
+		sql = sql.substring(0, sql.length()-1);
+		sql = sql +");";
+		System.out.println(sql);
+		try {
+			pst = connection.prepareStatement(sql);
+			pst.executeUpdate(); 
+			pst.close();
+			msg = "成功";
+			return msg;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			System.out.println("失败");
+			msg = "失败";
+			return msg;
+		}
 	}
 
 }
