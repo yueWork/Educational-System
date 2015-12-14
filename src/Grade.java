@@ -19,11 +19,11 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.BevelBorder;
+import javax.swing.JTabbedPane;
 
 public class Grade extends JFrame {
 
 	private JFrame frame;
-	private JTable table;
 
 	private Object[][] data = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
 
@@ -53,62 +53,20 @@ public class Grade extends JFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
-		panel.setBounds(17, 6, 414, 242);
 		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 6, 394, 101);
-		panel.add(scrollPane);
-
-		table = new JTable();
-		scrollPane.setViewportView(table);
-
-		table.setModel(new DefaultTableModel() {
-			@Override
-			public Object getValueAt(int row, int column) {
-				return data[row][column];
-			}
-
-			@Override
-			public int getRowCount() {
-				return 3;
-			}
-
-			@Override
-			public int getColumnCount() {
-				return 3;
-			}
-
-			@Override
-			public void setValueAt(Object aValue, int row, int column) {
-				data[row][column] = aValue;
-				fireTableCellUpdated(row, column);
-			}
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				if (column == 2) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		});
-
-		table.getColumnModel().getColumn(2).setCellEditor(new MyButtonEditor());
-
-		table.getColumnModel().getColumn(2).setCellRenderer(new MyButtonRenderer());
-
-		table.setRowSelectionAllowed(false);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		panel.add(tabbedPane);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		tabbedPane.addTab("New tab", null, lblNewLabel, null);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/background.jpg"));
-		lblNewLabel_1.setBounds(17, 6, panel.getWidth(), panel.getHeight());
-		panel.add(lblNewLabel_1);
+		tabbedPane.addTab("New tab", null, lblNewLabel_1, null);
 		
 //		JLabel lblNewLabel = new JLabel("New label");
 //		lblNewLabel.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/background.jpg"));
