@@ -2,7 +2,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +17,7 @@ import java.sql.Statement;
 import javax.swing.AbstractCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,11 +36,6 @@ import javax.swing.JOptionPane;
 
 public class Student extends JFrame {
 
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static JTable table;
 	private static String []column={"序号","课程编号","课程名","成绩","任课老师"};
@@ -45,34 +47,28 @@ public class Student extends JFrame {
 	private static JLabel year_label;
 	private static JLabel gpa_label;
 
-	String []names={"A","B"};
-
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
 	public Student(String sid,String sname,String sex,String year,String gpa,String age) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		setBounds(100, 100, 650, 400);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(18, 15, 614, 348);
-
 		setBounds(100, 100, 650, 450);
-		contentPane = new JPanel();
+		contentPane = new JPanel()
+		{
+			protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+		};
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-
-		tabbedPane.addChangeListener(new ChangeListener() {
-			
+		tabbedPane.addChangeListener(new ChangeListener() {			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
@@ -112,7 +108,9 @@ public class Student extends JFrame {
 						table.getColumnModel().getColumn(0).setPreferredWidth(30);
 						table.getColumnModel().getColumn(2).setPreferredWidth(180);
 					} catch (SQLException e1) {
-
+						// TODO Auto-generated catch block
+						
+//						e1.printStackTrace();
 					}
 			    	System.out.println(01);
 			     break;
@@ -176,14 +174,23 @@ public class Student extends JFrame {
 		
 		JPanel gradePan=new JPanel();
 		DefaultTableModel model=new DefaultTableModel(column,3);
-		table = new JTable(model);
+		table = new JTable(model){
+//			JComponent s;
+			public Component prepareRenderer(TableCellRenderer renderer,
+					int row, int column) {
+					Component c = super.prepareRenderer(renderer, row, column);
+					if (c instanceof JComponent) {
+					((JComponent) c).setOpaque(false);
+					}
+					return c;
+					}
+		};
+		table.setOpaque(false);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPane=new JScrollPane(table);
-	
 		Dimension dim=new Dimension(550, 290);
 		gradePan.setLayout(new BorderLayout(0, 0));
 		scrollPane.setPreferredSize(dim);
-        
 		table.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
 		gradePan.add(scrollPane);
 		scrollPane.setViewportView(table);
@@ -194,16 +201,21 @@ public class Student extends JFrame {
 		JTable tableCourse = new JTable(modelCourse);
 		tableCourse.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPaneCourse=new JScrollPane(tableCourse);
-
 		Dimension dimCourse=new Dimension(550, 290);
 		chooseCoursePan.setLayout(new BorderLayout(0, 0));
 		scrollPaneCourse.setPreferredSize(dimCourse);
-
 		tableCourse.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
 		chooseCoursePan.add(scrollPaneCourse);
 		scrollPaneCourse.setViewportView(tableCourse);
 		tabbedPane.add(chooseCoursePan, "Choose Course");
-
+//		JLabel lblNewLabel_1 = new JLabel("New label");
+//		tabbedPane.addTab("New tab", null, lblNewLabel_1, null);
+//		
+//		JLabel lblNewLabel = new JLabel("New label");
+//		tabbedPane.addTab("New tab", null, lblNewLabel, null);
+//		
+//		JLabel lblNewLabel_2 = new JLabel("New label");
+//		tabbedPane.addTab("New tab", null, lblNewLabel_2, null);
 		
 		name_label.setText(sname);
 		sex_label.setText(sex);
@@ -211,7 +223,10 @@ public class Student extends JFrame {
 		year_label.setText(year);
 		gpa_label.setText(gpa);
 		
-
+//		JLabel lblNewLabel_1 = new JLabel("New label");
+//		lblNewLabel_1.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
+//		lblNewLabel_1.setBounds(0, 0, infoPan.getWidth(), infoPan.getHeight());
+//		infoPan.add(lblNewLabel_1);
 		Dimension s=infoPan.getSize();
 		double x=s.getWidth();
 		System.out.println("infoPan"+x);
@@ -240,7 +255,7 @@ public class Student extends JFrame {
 		}
 		rs.close();
 		ps.close();
-        
+//
 		sql="select c.cno,c.cname,s.sectno,s.pname,s.dname from university.course c,"+
 				"university.section s where c.cno=s.cno and c.dname=s.dname";
 		ps=connect.connection.prepareStatement(sql);
@@ -311,12 +326,19 @@ public class Student extends JFrame {
 		tableCourse.getColumnModel().getColumn(1).setPreferredWidth(180);
 		tableCourse.getColumnModel().getColumn(2).setPreferredWidth(30);
 		tableCourse.getColumnModel().getColumn(4).setPreferredWidth(150);
-
 		tableCourse.getColumnModel().getColumn(5).setMaxWidth(60);
 		tableCourse.setRowSelectionAllowed(false);
 		table.setModel(mode);
-		
-		JPanel panel = new JPanel();
+		table.setOpaque(false);
+		JPanel panel = new JPanel(){
+			protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+		};
+		panel.setOpaque(false);
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -330,7 +352,12 @@ public class Student extends JFrame {
 			}
 		});
 		panel.add(btnNewButton, BorderLayout.EAST);
-
+		
+//		
+//		JLabel lblNewLabel = new JLabel("New label");
+//		lblNewLabel.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
+//		lblNewLabel.setBounds(0, 0, 650, 378);
+//		contentPane.add(lblNewLabel);
 	}
 	public class MyButtonRenderer implements TableCellRenderer {
 		private JPanel panel;
@@ -413,9 +440,10 @@ public class Student extends JFrame {
 //							ResultSet rs=(ResultSet)ps.executeQuery();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
-
 							JOptionPane.showMessageDialog(null, "You had chosen this course");
-
+//							int error = JOptionPane.showConfirmDialog(null, "You had chosen this course?", "",
+//									JOptionPane.YES_NO_OPTION);
+//							e1.printStackTrace();
 						}
 						
 					}
