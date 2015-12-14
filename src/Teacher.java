@@ -54,7 +54,7 @@ public class Teacher extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon(Login.url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -115,7 +115,7 @@ public class Teacher extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon(Login.url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -143,7 +143,7 @@ public class Teacher extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon(Login.url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -153,6 +153,7 @@ public class Teacher extends JFrame {
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		table = new JTable(tModel);
+		table.setRowSelectionAllowed(false);
 		JScrollPane scrollpane = new JScrollPane(table);
 		panel_1.add(scrollpane, BorderLayout.CENTER);
 		scrollpane.setViewportView(table);

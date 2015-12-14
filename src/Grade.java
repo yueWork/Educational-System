@@ -33,7 +33,7 @@ public class Grade extends JFrame {
 				try {
 					Grade window = new Grade();
 					
-					ImageIcon mainBack=new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/background.jpg");
+					ImageIcon mainBack=new ImageIcon(Login.url);
 					JLabel imgMain=new JLabel(mainBack);
 			
 					window.getLayeredPane().add(imgMain,new Integer(Integer.MIN_VALUE));

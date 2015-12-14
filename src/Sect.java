@@ -52,7 +52,7 @@ public class Sect extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon(Login.url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -111,6 +111,7 @@ public class Sect extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable(tModel);
+		table.setRowSelectionAllowed(false);
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
 		
@@ -119,7 +120,7 @@ public class Sect extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon(Login.url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  

@@ -50,7 +50,7 @@ public class ProfInfo extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon(Login.url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -105,20 +105,12 @@ public class ProfInfo extends JFrame {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable(tModel);
+		table.setRowSelectionAllowed(false);
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
 		
-		JPanel panel = new JPanel()
-		{  
-			  
-            protected void paintComponent(Graphics g) {  
-            	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
-            	g.drawImage(img.getImage(), 0, 0, null); 
-  
-            }  
-  
-        }; 
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel label = new JLabel("教师信息");
@@ -134,17 +126,8 @@ public class ProfInfo extends JFrame {
 		});
 		panel.add(button);
 		
-		JPanel panel_1 = new JPanel()
-		{  
-			  
-            protected void paintComponent(Graphics g) {  
-            	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
-            	g.drawImage(img.getImage(), 0, 0, null); 
-  
-            }  
-  
-        }; 
+		JPanel panel_1 = new JPanel();
+		panel_1.setOpaque(false);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -169,17 +152,8 @@ public class ProfInfo extends JFrame {
 		panel_1.add(textField_2);
 		textField_2.setColumns(3);
 		
-		JPanel panel_2 = new JPanel()
-		{  
-			  
-            protected void paintComponent(Graphics g) {  
-            	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
-            	g.drawImage(img.getImage(), 0, 0, null); 
-  
-            }  
-  
-        }; 
+		JPanel panel_2 = new JPanel();
+		panel_2.setOpaque(false);
 		panel_1.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		

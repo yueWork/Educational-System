@@ -29,6 +29,8 @@ import javax.swing.SwingConstants;
 
 public class Login extends JFrame {
 	
+	public static final String url = "/Users/yue/Desktop/26.png";
+	
 	private String type = null;//学生 or 教师 or 管理员
 	private int uid = -1;//学生:sid or 教师:pid or 管理员：6666
 	private String password = null;
@@ -68,7 +70,7 @@ public class Login extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/25.jpg");
+            	ImageIcon img = new ImageIcon(url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -83,7 +85,7 @@ public class Login extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/25.jpg");
+            	ImageIcon img = new ImageIcon(url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -141,17 +143,8 @@ public class Login extends JFrame {
 		label_4.setBounds(64, 6, 317, 39);
 		panel.add(label_4);
 		
-		JPanel panel_2 = new JPanel()
-		{  
-			  
-            protected void paintComponent(Graphics g) {  
-            	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
-            	g.drawImage(img.getImage(), 0, 0, null); 
-  
-            }  
-  
-        }; 
+		JPanel panel_2 = new JPanel(); 
+        panel_2.setOpaque(false);
         JLabel label_3 = new JLabel("提示消息");
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		

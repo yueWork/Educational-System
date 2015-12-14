@@ -24,6 +24,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class StudentInfo extends JFrame {
 
@@ -61,7 +63,7 @@ public class StudentInfo extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon(Login.url);
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -137,21 +139,14 @@ public class StudentInfo extends JFrame {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable(tModel);
+		table.setRowSelectionAllowed(false);
+		table.setBackground(Color.WHITE);
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
 		
 		
-		JPanel panel = new JPanel()
-		{  
-			  
-            protected void paintComponent(Graphics g) {  
-            	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
-            	g.drawImage(img.getImage(), 0, 0, null); 
-  
-            }  
-  
-        }; 
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel label = new JLabel("学生信息");
@@ -167,31 +162,13 @@ public class StudentInfo extends JFrame {
 		});
 		panel.add(button);
 		
-		JPanel panel_1 = new JPanel()
-		{  
-			  
-            protected void paintComponent(Graphics g) {  
-            	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
-            	g.drawImage(img.getImage(), 0, 0, null); 
-  
-            }  
-  
-        }; 
+		JPanel panel_1 = new JPanel();
+		panel_1.setOpaque(false);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_2 = new JPanel()
-		{  
-			  
-            protected void paintComponent(Graphics g) {  
-            	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
-            	g.drawImage(img.getImage(), 0, 0, null); 
-  
-            }  
-  
-        }; 
+		JPanel panel_2 = new JPanel();
+		panel_2.setOpaque(false);
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		
 		JLabel label_1 = new JLabel("学号：");
@@ -215,17 +192,8 @@ public class StudentInfo extends JFrame {
 		panel_2.add(textField_4);
 		textField_4.setColumns(3);
 		
-		JPanel panel_3 = new JPanel()
-		{  
-			  
-            protected void paintComponent(Graphics g) {  
-            	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
-            	g.drawImage(img.getImage(), 0, 0, null); 
-  
-            }  
-  
-        }; 
+		JPanel panel_3 = new JPanel();
+		panel_3.setOpaque(false);
 		panel_1.add(panel_3, BorderLayout.SOUTH);
 		
 		JLabel lblNewLabel = new JLabel("年龄：");
