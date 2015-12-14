@@ -63,11 +63,17 @@ public class Student extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ImageIcon mainBack=new ImageIcon("../img/background.jpg");
-		JLabel imgMain=new JLabel(mainBack);
-		imgMain.setBounds(0, 0, mainBack.getIconWidth(), mainBack.getIconHeight());
-		contentPane.setOpaque(false);
-		this.getLayeredPane().add(imgMain,new Integer(Integer.MIN_VALUE));
+//		JLabel lblNewLabel = new JLabel("New label");
+//		lblNewLabel.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/background.jpg"));
+////		System.out.println(frame.getWidth());
+//		lblNewLabel.setBounds(0, 0, this.getWidth(), this.getHeight());
+//		this.getContentPane().add(lblNewLabel);
+		
+//		ImageIcon mainBack=new ImageIcon("../img/background.jpg");
+//		JLabel imgMain=new JLabel(mainBack);
+//		imgMain.setBounds(0, 0, mainBack.getIconWidth(), mainBack.getIconHeight());
+//		contentPane.setOpaque(false);
+//		this.getLayeredPane().add(imgMain,new Integer(Integer.MIN_VALUE));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(18, 15, 614, 348);
@@ -128,6 +134,7 @@ public class Student extends JFrame {
 		contentPane.add(tabbedPane);
 		
 		JPanel infoPan=new JPanel();
+		infoPan.setBackground(Color.WHITE);
 		
 		JLabel label_4 = new JLabel("姓名");
 		label_4.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
@@ -179,9 +186,11 @@ public class Student extends JFrame {
 		table = new JTable(model);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPane=new JScrollPane(table);
+		scrollPane.setSize(550, 290);
 		Dimension dim=new Dimension(550, 290);
+		gradePan.setLayout(null);
 		scrollPane.setPreferredSize(dim);
-		scrollPane.setLocation(25, 44);		
+		scrollPane.setLocation(21, 5);		
 		table.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
 		gradePan.add(scrollPane);
 		scrollPane.setViewportView(table);
@@ -192,9 +201,11 @@ public class Student extends JFrame {
 		JTable tableCourse = new JTable(modelCourse);
 		tableCourse.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPaneCourse=new JScrollPane(tableCourse);
+		scrollPaneCourse.setSize(550, 290);
 		Dimension dimCourse=new Dimension(550, 290);
+		chooseCoursePan.setLayout(null);
 		scrollPaneCourse.setPreferredSize(dimCourse);
-		scrollPaneCourse.setLocation(25, 44);		
+		scrollPaneCourse.setLocation(21, 5);		
 		tableCourse.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
 		chooseCoursePan.add(scrollPaneCourse);
 		scrollPaneCourse.setViewportView(tableCourse);
@@ -218,6 +229,11 @@ public class Student extends JFrame {
 		age_label.setText(age);
 		year_label.setText(year);
 		gpa_label.setText(gpa);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
+		lblNewLabel_1.setBounds(0, 0, 593, 302);
+		infoPan.add(lblNewLabel_1);
 		
 		String [][]test;
 		int i=0;
@@ -314,7 +330,22 @@ public class Student extends JFrame {
 		tableCourse.getColumnModel().getColumn(2).setPreferredWidth(30);
 		tableCourse.getColumnModel().getColumn(4).setPreferredWidth(150);
 		tableCourse.setRowSelectionAllowed(false);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
+		lblNewLabel_3.setBounds(0, 0, 593, 302);
+		chooseCoursePan.add(lblNewLabel_3);
 		table.setModel(mode);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
+		lblNewLabel_2.setBounds(0, 0, 593, 302);
+		gradePan.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
+		lblNewLabel.setBounds(0, 0, 650, 378);
+		contentPane.add(lblNewLabel);
 		table.getColumnModel().getColumn(0).setPreferredWidth(30);
 		table.getColumnModel().getColumn(2).setPreferredWidth(180);
 		
