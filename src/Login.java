@@ -68,7 +68,7 @@ public class Login extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/25.jpg");
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
@@ -83,7 +83,7 @@ public class Login extends JFrame {
 			  
             protected void paintComponent(Graphics g) {  
             	super.paintComponent(g);
-            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	ImageIcon img = new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/25.jpg");
             	g.drawImage(img.getImage(), 0, 0, null); 
   
             }  
