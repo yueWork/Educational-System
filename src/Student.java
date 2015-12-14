@@ -28,6 +28,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Student extends JFrame {
 
@@ -76,7 +78,7 @@ public class Student extends JFrame {
 //		this.getLayeredPane().add(imgMain,new Integer(Integer.MIN_VALUE));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(18, 15, 614, 348);
+		tabbedPane.setBounds(18, 30, 614, 348);
 		tabbedPane.addChangeListener(new ChangeListener() {
 			
 			@Override
@@ -119,7 +121,8 @@ public class Student extends JFrame {
 						table.getColumnModel().getColumn(2).setPreferredWidth(180);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						
+//						e1.printStackTrace();
 					}
 			    	System.out.println(01);
 			     break;
@@ -342,12 +345,29 @@ public class Student extends JFrame {
 		lblNewLabel_2.setBounds(0, 0, 593, 302);
 		gradePan.add(lblNewLabel_2);
 		
+		JButton button = new JButton("返回");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login l = new Login();
+				l.show();
+				Student.this.dispose();
+			}
+		});
+		button.setBackground(Color.DARK_GRAY);
+		button.setBounds(585, 6, 65, 29);
+		contentPane.add(button);
+		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
 		lblNewLabel.setBounds(0, 0, 650, 378);
 		contentPane.add(lblNewLabel);
-		table.getColumnModel().getColumn(0).setPreferredWidth(30);
-		table.getColumnModel().getColumn(2).setPreferredWidth(180);
+		
+//		JButton button = new JButton("返回");
+//		button.setBounds(556, 0, 117, 29);
+//		contentPane.add(button);
+//		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+//		table.getColumnModel().getColumn(2).setPreferredWidth(180);
 		
 //		JPanel 
 	}
@@ -432,7 +452,10 @@ public class Student extends JFrame {
 //							ResultSet rs=(ResultSet)ps.executeQuery();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
-							e1.printStackTrace();
+							JOptionPane.showMessageDialog(null, "You had chosen this course");
+//							int error = JOptionPane.showConfirmDialog(null, "You had chosen this course?", "",
+//									JOptionPane.YES_NO_OPTION);
+//							e1.printStackTrace();
 						}
 						
 					}
