@@ -13,12 +13,14 @@ import com.mysql.jdbc.ResultSet;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Graphics;
 
 public class ProfInfo extends JFrame {
 
@@ -43,7 +45,17 @@ public class ProfInfo extends JFrame {
 		this.getData();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -96,7 +108,17 @@ public class ProfInfo extends JFrame {
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel label = new JLabel("教师信息");
@@ -112,7 +134,17 @@ public class ProfInfo extends JFrame {
 		});
 		panel.add(button);
 		
-		JPanel panel_1 = new JPanel();
+		JPanel panel_1 = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -137,7 +169,17 @@ public class ProfInfo extends JFrame {
 		panel_1.add(textField_2);
 		textField_2.setColumns(3);
 		
-		JPanel panel_2 = new JPanel();
+		JPanel panel_2 = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		panel_1.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		

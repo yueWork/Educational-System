@@ -15,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -44,7 +47,17 @@ public class Sect extends JFrame {
 		this.getData();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
@@ -101,7 +114,17 @@ public class Sect extends JFrame {
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		

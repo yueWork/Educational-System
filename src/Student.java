@@ -105,6 +105,7 @@ public class Student extends JFrame {
 						while(rs.next()){
 							test[i][0]=String.valueOf(i+1);
 							test[i][1]=rs.getString(1);
+							System.out.println(test[i][1]);
 							test[i][2]=rs.getString(2).replace("\"", "");
 							test[i][3]=rs.getString(3);
 							test[i][4]=rs.getString(4).replace("\"", "");
@@ -231,7 +232,7 @@ public class Student extends JFrame {
 		gpa_label.setText(gpa);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
+		lblNewLabel_1.setIcon(new ImageIcon("../Educational-System/img/background.jpg"));
 		lblNewLabel_1.setBounds(0, 0, 593, 302);
 		infoPan.add(lblNewLabel_1);
 		

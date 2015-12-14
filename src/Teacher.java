@@ -15,9 +15,11 @@ import com.mysql.jdbc.ResultSet;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 
 public class Teacher extends JFrame {
 
@@ -47,7 +49,17 @@ public class Teacher extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        };
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -98,7 +110,17 @@ public class Teacher extends JFrame {
 				 }
 		};
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        };
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel label = new JLabel("教师姓名：");
@@ -116,7 +138,17 @@ public class Teacher extends JFrame {
 		JButton button = new JButton("返回");
 		panel.add(button);
 		
-		JPanel panel_1 = new JPanel();
+		JPanel panel_1 = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        };
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		

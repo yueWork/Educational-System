@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -54,7 +56,17 @@ public class StudentInfo extends JFrame {
 		this.getData();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -129,7 +141,17 @@ public class StudentInfo extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel label = new JLabel("学生信息");
@@ -145,11 +167,31 @@ public class StudentInfo extends JFrame {
 		});
 		panel.add(button);
 		
-		JPanel panel_1 = new JPanel();
+		JPanel panel_1 = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_2 = new JPanel();
+		JPanel panel_2 = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		
 		JLabel label_1 = new JLabel("学号：");
@@ -173,7 +215,17 @@ public class StudentInfo extends JFrame {
 		panel_2.add(textField_4);
 		textField_4.setColumns(3);
 		
-		JPanel panel_3 = new JPanel();
+		JPanel panel_3 = new JPanel()
+		{  
+			  
+            protected void paintComponent(Graphics g) {  
+            	super.paintComponent(g);
+            	ImageIcon img = new ImageIcon("/Users/yue/Desktop/25.jpg");
+            	g.drawImage(img.getImage(), 0, 0, null); 
+  
+            }  
+  
+        }; 
 		panel_1.add(panel_3, BorderLayout.SOUTH);
 		
 		JLabel lblNewLabel = new JLabel("年龄：");
