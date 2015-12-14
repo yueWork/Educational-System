@@ -2,9 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +29,7 @@ import javax.swing.JOptionPane;
 
 public class Student extends JFrame {
 
+
 	/**
 	 * 
 	 */
@@ -45,38 +44,33 @@ public class Student extends JFrame {
 	private static JLabel age_label;
 	private static JLabel year_label;
 	private static JLabel gpa_label;
-//	private static String sex="";
-//	private static String name;
-//	private static String age;
-//	private static String gpa;
-//	private static String year;
+
 	String []names={"A","B"};
+
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
 	public Student(String sid,String sname,String sex,String year,String gpa,String age) throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		setBounds(100, 100, 650, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-//		JLabel lblNewLabel = new JLabel("New label");
-//		lblNewLabel.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/background.jpg"));
-////		System.out.println(frame.getWidth());
-//		lblNewLabel.setBounds(0, 0, this.getWidth(), this.getHeight());
-//		this.getContentPane().add(lblNewLabel);
-		
-//		ImageIcon mainBack=new ImageIcon("../img/background.jpg");
-//		JLabel imgMain=new JLabel(mainBack);
-//		imgMain.setBounds(0, 0, mainBack.getIconWidth(), mainBack.getIconHeight());
-//		contentPane.setOpaque(false);
-//		this.getLayeredPane().add(imgMain,new Integer(Integer.MIN_VALUE));
-		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(18, 15, 614, 348);
+
+		setBounds(100, 100, 650, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
 		tabbedPane.addChangeListener(new ChangeListener() {
 			
 			@Override
@@ -105,7 +99,6 @@ public class Student extends JFrame {
 						while(rs.next()){
 							test[i][0]=String.valueOf(i+1);
 							test[i][1]=rs.getString(1);
-							System.out.println(test[i][1]);
 							test[i][2]=rs.getString(2).replace("\"", "");
 							test[i][3]=rs.getString(3);
 							test[i][4]=rs.getString(4).replace("\"", "");
@@ -119,8 +112,7 @@ public class Student extends JFrame {
 						table.getColumnModel().getColumn(0).setPreferredWidth(30);
 						table.getColumnModel().getColumn(2).setPreferredWidth(180);
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+
 					}
 			    	System.out.println(01);
 			     break;
@@ -132,7 +124,7 @@ public class Student extends JFrame {
 			    }
 			}
 		});
-		contentPane.add(tabbedPane);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel infoPan=new JPanel();
 		infoPan.setBackground(Color.WHITE);
@@ -187,11 +179,11 @@ public class Student extends JFrame {
 		table = new JTable(model);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPane=new JScrollPane(table);
-		scrollPane.setSize(550, 290);
+	
 		Dimension dim=new Dimension(550, 290);
-		gradePan.setLayout(null);
+		gradePan.setLayout(new BorderLayout(0, 0));
 		scrollPane.setPreferredSize(dim);
-		scrollPane.setLocation(21, 5);		
+        
 		table.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
 		gradePan.add(scrollPane);
 		scrollPane.setViewportView(table);
@@ -202,28 +194,16 @@ public class Student extends JFrame {
 		JTable tableCourse = new JTable(modelCourse);
 		tableCourse.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPaneCourse=new JScrollPane(tableCourse);
-		scrollPaneCourse.setSize(550, 290);
+
 		Dimension dimCourse=new Dimension(550, 290);
-		chooseCoursePan.setLayout(null);
+		chooseCoursePan.setLayout(new BorderLayout(0, 0));
 		scrollPaneCourse.setPreferredSize(dimCourse);
-		scrollPaneCourse.setLocation(21, 5);		
+
 		tableCourse.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
 		chooseCoursePan.add(scrollPaneCourse);
 		scrollPaneCourse.setViewportView(tableCourse);
 		tabbedPane.add(chooseCoursePan, "Choose Course");
-		 
-//		JPanel courseChosen=new JPanel();
-//		DefaultTableModel modelChosen=new DefaultTableModel(chosenCourse,3);
-//		JTable tableChosen = new JTable(modelChosen);
-//		tableChosen.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-//		JScrollPane scrollPaneChosen=new JScrollPane(tableChosen);
-//		Dimension dimChosen=new Dimension(550, 290);
-//		scrollPaneChosen.setPreferredSize(dimChosen);
-//		scrollPaneChosen.setLocation(25, 44);		
-////		tableChosen.setBounds(128, 195, gradePan.getWidth(), gradePan.getHeight());		
-//		courseChosen.add(scrollPaneChosen);
-//		scrollPaneChosen.setViewportView(tableChosen);
-//		tabbedPane.add(courseChosen, "Coures Chosen");
+
 		
 		name_label.setText(sname);
 		sex_label.setText(sex);
@@ -231,10 +211,11 @@ public class Student extends JFrame {
 		year_label.setText(year);
 		gpa_label.setText(gpa);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon("../Educational-System/img/background.jpg"));
-		lblNewLabel_1.setBounds(0, 0, 593, 302);
-		infoPan.add(lblNewLabel_1);
+
+		Dimension s=infoPan.getSize();
+		double x=s.getWidth();
+		System.out.println("infoPan"+x);
+		System.out.println("tabPane"+tabbedPane.getWidth());
 		
 		String [][]test;
 		int i=0;
@@ -259,7 +240,7 @@ public class Student extends JFrame {
 		}
 		rs.close();
 		ps.close();
-
+        
 		sql="select c.cno,c.cname,s.sectno,s.pname,s.dname from university.course c,"+
 				"university.section s where c.cno=s.cno and c.dname=s.dname";
 		ps=connect.connection.prepareStatement(sql);
@@ -330,27 +311,26 @@ public class Student extends JFrame {
 		tableCourse.getColumnModel().getColumn(1).setPreferredWidth(180);
 		tableCourse.getColumnModel().getColumn(2).setPreferredWidth(30);
 		tableCourse.getColumnModel().getColumn(4).setPreferredWidth(150);
+
+		tableCourse.getColumnModel().getColumn(5).setMaxWidth(60);
 		tableCourse.setRowSelectionAllowed(false);
-		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
-		lblNewLabel_3.setBounds(0, 0, 593, 302);
-		chooseCoursePan.add(lblNewLabel_3);
 		table.setModel(mode);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
-		lblNewLabel_2.setBounds(0, 0, 593, 302);
-		gradePan.add(lblNewLabel_2);
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("/Users/zyy/Documents/XcodeProject/github/Educational-System/img/back.jpg"));
-		lblNewLabel.setBounds(0, 0, 650, 378);
-		contentPane.add(lblNewLabel);
-		table.getColumnModel().getColumn(0).setPreferredWidth(30);
-		table.getColumnModel().getColumn(2).setPreferredWidth(180);
-		
-//		JPanel 
+		JButton btnNewButton = new JButton("返回");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login l = new Login();
+				l.show();
+				Student.this.dispose();
+			}
+		});
+		panel.add(btnNewButton, BorderLayout.EAST);
+
 	}
 	public class MyButtonRenderer implements TableCellRenderer {
 		private JPanel panel;
@@ -433,7 +413,9 @@ public class Student extends JFrame {
 //							ResultSet rs=(ResultSet)ps.executeQuery();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
-							e1.printStackTrace();
+
+							JOptionPane.showMessageDialog(null, "You had chosen this course");
+
 						}
 						
 					}
