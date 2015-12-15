@@ -185,6 +185,7 @@ public class Student extends JFrame {
 					return c;
 					}
 		};
+		table.setRowSelectionAllowed(false);
 		table.setOpaque(false);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPane=new JScrollPane(table);
